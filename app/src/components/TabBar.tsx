@@ -28,6 +28,12 @@ const TABS: Tab[] = [
     icon: 'M4 5h16v10h-5l-2 3-2-3H4zm4 4h8M8 12h5',
   },
   {
+    name: 'notizen',
+    label: 'Notizen',
+    routes: ['notizen', 'notiz', 'graph'],
+    icon: 'M6 4h9l3 3v13a1 1 0 01-1 1H6a1 1 0 01-1-1V5a1 1 0 011-1zm2 6h7M8 14h7M8 18h4',
+  },
+  {
     name: 'bereiche',
     label: 'Bereiche',
     routes: ['bereiche', 'bereich'],
@@ -36,7 +42,7 @@ const TABS: Tab[] = [
   {
     name: 'mehr',
     label: 'Mehr',
-    routes: ['mehr', 'rueckblick', 'import', 'einstellungen', 'notizen', 'notiz', 'graph'],
+    routes: ['mehr', 'rueckblick', 'import', 'einstellungen'],
     icon: 'M5 12h.01M12 12h.01M19 12h.01',
   },
 ]

@@ -8,6 +8,11 @@ export async function gotoApp(page: Page, hash = '#/heute'): Promise<void> {
     await intro.click({ timeout: 1500 }).catch(() => {})
     await intro.waitFor({ state: 'detached', timeout: 3000 }).catch(() => {})
   }
+  // Maskottchen einklappen, damit die Sprechblase keine Klicks abfängt
+  const mascotClose = page.getByTestId('mascot-close')
+  if (await mascotClose.count()) {
+    await mascotClose.click({ timeout: 1000 }).catch(() => {})
+  }
   await page.locator('.view-title').first().waitFor()
 }
 

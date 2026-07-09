@@ -36,3 +36,20 @@ test('Notiz-Vault: anlegen, [[Verlinkung]], Backlink, #Tag-Filter, Graph', async
   await gotoApp(page, '#/graph')
   await expect(page.getByTestId('graph-canvas')).toBeVisible()
 })
+
+test('Notizen-Tab und Capture im Notiz-Modus', async ({ page }) => {
+  await gotoApp(page)
+
+  // Eigener Tab „Notizen" ist in der Leiste
+  await page.locator('.tabbar a[href="#/notizen"]').click()
+  await expect(page.locator('.view-title')).toHaveText('Notizen')
+
+  // Über den +-Knopf im Notiz-Modus eine Notiz anlegen
+  await page.getByTestId('capture-fab').click()
+  await page.getByTestId('capture-mode-note').click()
+  await page.getByTestId('capture-input').fill('Schnellgedanke')
+  await page.getByTestId('capture-note-create').click()
+
+  // Landet direkt im Notiz-Editor
+  await expect(page.getByTestId('note-title')).toHaveValue('Schnellgedanke')
+})
