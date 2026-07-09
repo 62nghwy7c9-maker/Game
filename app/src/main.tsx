@@ -13,12 +13,12 @@ void loadAll()
 
 render(<App />, document.getElementById('app')!)
 
+// Neue Versionen sofort und automatisch übernehmen — kein Hängenbleiben auf
+// altem Zwischenspeicher. Kurzer Hinweis, dann Neuladen.
 const updateSW = registerSW({
+  immediate: true,
   onNeedRefresh() {
-    showToast('Neue Version verfügbar.', {
-      sticky: true,
-      actionLabel: 'Neu laden',
-      onAction: () => void updateSW(true),
-    })
+    showToast('Aktualisiere auf neue Version …')
+    setTimeout(() => void updateSW(true), 800)
   },
 })
