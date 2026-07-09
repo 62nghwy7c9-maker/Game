@@ -4,6 +4,7 @@ import { TabBar } from './components/TabBar'
 import { CaptureFab } from './components/CaptureFab'
 import { CaptureSheet } from './components/CaptureSheet'
 import { ToastHost } from './components/Toast'
+import { IntroSplash } from './components/IntroSplash'
 import { Heute } from './views/Heute'
 import { Woche } from './views/Woche'
 import { InboxView } from './views/InboxView'
@@ -68,6 +69,7 @@ export function App() {
       <CaptureFab />
       <CaptureSheet />
       <ToastHost />
+      <IntroSplash />
     </>
   )
 }

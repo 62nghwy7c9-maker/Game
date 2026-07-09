@@ -504,3 +504,81 @@ label.field > span {
   color: var(--text-muted);
   margin-top: 3px;
 }
+
+/* ---------- Intro-Splash (AI-Brain) ---------- */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 42%, rgba(56, 189, 248, 0.16), transparent 70%),
+    linear-gradient(180deg, #0a1120 0%, #05080e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.intro.intro-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-content {
+  position: relative;
+  text-align: center;
+  margin-top: 20vh;
+  animation: intro-rise 1s ease 0.6s both;
+}
+
+.intro-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  background: linear-gradient(90deg, #7dd3fc, #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 24px rgba(56, 189, 248, 0.35);
+}
+
+.intro-tag {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.intro-skip {
+  position: absolute;
+  bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: intro-fade 0.6s ease 1.8s forwards;
+}
+
+@keyframes intro-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes intro-fade {
+  to { opacity: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-content { animation: none; }
+  .intro-skip { animation: none; opacity: 0.7; }
+}

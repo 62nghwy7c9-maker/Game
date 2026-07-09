@@ -2,6 +2,12 @@ import type { Page } from '@playwright/test'
 
 export async function gotoApp(page: Page, hash = '#/heute'): Promise<void> {
   await page.goto(`./${hash}`)
+  // Intro-Splash (einmal pro Session) wegklicken, damit es Klicks nicht blockiert
+  const intro = page.getByTestId('intro-splash')
+  if (await intro.count()) {
+    await intro.click({ timeout: 1500 }).catch(() => {})
+    await intro.waitFor({ state: 'detached', timeout: 3000 }).catch(() => {})
+  }
   await page.locator('.view-title').first().waitFor()
 }
 
