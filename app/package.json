@@ -1,0 +1,31 @@
+{
+  "name": "wochenkompass",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "build:offline": "vite build -c vite.singlefile.config.ts && mv ../docs/offline/index.html ../docs/offline/wochenkompass.html",
+    "build:all": "npm run build && npm run build:offline"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.0.0",
+    "idb-keyval": "^6.2.1",
+    "pdfjs-dist": "^4.10.38",
+    "preact": "^10.25.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@preact/preset-vite": "^2.9.0",
+    "pdf-lib": "^1.17.1",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vite-plugin-pwa": "^0.21.0",
+    "vite-plugin-singlefile": "^2.3.3",
+    "vitest": "^2.1.0"
+  }
+}
