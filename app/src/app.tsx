@@ -14,6 +14,9 @@ import { Rueckblick } from './views/Rueckblick'
 import { ImportView } from './views/ImportView'
 import { Einstellungen } from './views/Einstellungen'
 import { Mehr } from './views/Mehr'
+import { NotizenView } from './views/NotizenView'
+import { NotizDetail } from './views/NotizDetail'
+import { GraphView } from './views/GraphView'
 
 function CurrentView() {
   switch (route.value.name) {
@@ -31,6 +34,12 @@ function CurrentView() {
       return <Rueckblick />
     case 'import':
       return <ImportView />
+    case 'notizen':
+      return <NotizenView />
+    case 'notiz':
+      return <NotizDetail />
+    case 'graph':
+      return <GraphView />
     case 'einstellungen':
       return <Einstellungen />
     case 'mehr':

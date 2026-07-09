@@ -17,6 +17,7 @@
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@preact/signals": "^2.0.0",
     "idb-keyval": "^6.2.1",
+    "marked": "^18.0.5",
     "pdfjs-dist": "^4.10.38",
     "preact": "^10.25.0"
   },

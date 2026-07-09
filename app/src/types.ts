@@ -119,6 +119,15 @@ export interface SavedMapping {
   updatedAt: string
 }
 
+export interface Note {
+  id: string
+  title: string
+  /** Markdown-Text mit [[Verlinkungen]] und #Tags */
+  body: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface Settings {
   schemaVersion: number
   /** 'HH:MM' — Beginn des planbaren Tages */
@@ -140,5 +149,6 @@ export interface BackupFile {
   dayPlans: DayPlan[]
   reviews: Review[]
   mappings: SavedMapping[]
+  notes: Note[]
   settings: Settings
 }

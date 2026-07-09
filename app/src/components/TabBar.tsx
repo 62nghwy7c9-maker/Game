@@ -36,7 +36,7 @@ const TABS: Tab[] = [
   {
     name: 'mehr',
     label: 'Mehr',
-    routes: ['mehr', 'rueckblick', 'import', 'einstellungen'],
+    routes: ['mehr', 'rueckblick', 'import', 'einstellungen', 'notizen', 'notiz', 'graph'],
     icon: 'M5 12h.01M12 12h.01M19 12h.01',
   },
 ]

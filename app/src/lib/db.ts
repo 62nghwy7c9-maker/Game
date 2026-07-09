@@ -10,6 +10,7 @@ export type CollectionKey =
   | 'dayPlans'
   | 'reviews'
   | 'mappings'
+  | 'notes'
   | 'settings'
 
 export async function dbGet<T>(key: CollectionKey): Promise<T | undefined> {

@@ -4,6 +4,7 @@ import type {
   Block,
   BlockDef,
   DayPlan,
+  Note,
   Review,
   SavedMapping,
   Settings,
@@ -12,6 +13,7 @@ import type {
   Week,
   WeekTemplate,
 } from '../types'
+import { extractLinks, extractTags } from '../lib/markdown'
 import { dbGet, dbSet, requestPersistentStorage, type CollectionKey } from '../lib/db'
 import { CURRENT_SCHEMA_VERSION, migrate } from '../lib/migrations'
 import { newId, nowIso } from '../lib/id'
@@ -28,6 +30,7 @@ export const templates = signal<WeekTemplate[]>([])
 export const dayPlans = signal<DayPlan[]>([])
 export const reviews = signal<Review[]>([])
 export const mappings = signal<SavedMapping[]>([])
+export const notes = signal<Note[]>([])
 export const settings = signal<Settings>(defaultSettings())
 export const ready = signal(false)
 
@@ -100,7 +103,7 @@ function seedTemplate(seedAreaList: Area[]): WeekTemplate {
 }
 
 export async function loadAll(): Promise<void> {
-  const [a, t, w, tpl, dp, rv, mp, st] = await Promise.all([
+  const [a, t, w, tpl, dp, rv, mp, st, nt] = await Promise.all([
     dbGet<Area[]>('areas'),
     dbGet<Task[]>('tasks'),
     dbGet<Week[]>('weeks'),
@@ -109,6 +112,7 @@ export async function loadAll(): Promise<void> {
     dbGet<Review[]>('reviews'),
     dbGet<SavedMapping[]>('mappings'),
     dbGet<Settings>('settings'),
+    dbGet<Note[]>('notes'),
   ])
 
   if (st && st.schemaVersion < CURRENT_SCHEMA_VERSION) {
@@ -123,6 +127,7 @@ export async function loadAll(): Promise<void> {
       dayPlans: dp ?? [],
       reviews: rv ?? [],
       mappings: mp ?? [],
+      notes: nt ?? [],
       settings: st,
     })
     areas.value = migrated.areas
@@ -132,6 +137,7 @@ export async function loadAll(): Promise<void> {
     dayPlans.value = migrated.dayPlans
     reviews.value = migrated.reviews
     mappings.value = migrated.mappings
+    notes.value = migrated.notes
     settings.value = migrated.settings
   } else {
     const firstStart = !st
@@ -143,6 +149,7 @@ export async function loadAll(): Promise<void> {
     dayPlans.value = dp ?? []
     reviews.value = rv ?? []
     mappings.value = mp ?? []
+    notes.value = nt ?? []
     settings.value = st ?? defaultSettings()
     if (firstStart) {
       await Promise.all([
@@ -181,6 +188,7 @@ autoPersist('templates', templates)
 autoPersist('dayPlans', dayPlans)
 autoPersist('reviews', reviews)
 autoPersist('mappings', mappings)
+autoPersist('notes', notes)
 autoPersist('settings', settings)
 
 /** Sofort alles wegschreiben (z. B. vor Backup-Import oder in Tests). */
@@ -193,8 +201,60 @@ export async function flushAll(): Promise<void> {
     dbSet('dayPlans', dayPlans.value),
     dbSet('reviews', reviews.value),
     dbSet('mappings', mappings.value),
+    dbSet('notes', notes.value),
     dbSet('settings', settings.value),
   ])
+}
+
+// ---------- Notizen (Obsidian-artiger Vault) ----------
+
+export function noteById(id?: string): Note | undefined {
+  return id ? notes.value.find((n) => n.id === id) : undefined
+}
+
+export function noteByTitle(title: string): Note | undefined {
+  const t = title.trim().toLowerCase()
+  return notes.value.find((n) => n.title.trim().toLowerCase() === t)
+}
+
+export function createNote(title = 'Neue Notiz', body = ''): Note {
+  const ts = nowIso()
+  const note: Note = { id: newId(), title, body, createdAt: ts, updatedAt: ts }
+  notes.value = [...notes.value, note]
+  return note
+}
+
+export function updateNote(id: string, patch: Partial<Note>): void {
+  notes.value = notes.value.map((n) => (n.id === id ? { ...n, ...patch, updatedAt: nowIso() } : n))
+}
+
+export function deleteNote(id: string): void {
+  notes.value = notes.value.filter((n) => n.id !== id)
+}
+
+/** Legt bei Bedarf eine Notiz mit diesem Titel an und liefert sie. */
+export function ensureNoteByTitle(title: string): Note {
+  return noteByTitle(title) ?? createNote(title, '')
+}
+
+/** Notizen, die per [[…]] auf die gegebene Notiz verweisen. */
+export function backlinksOf(note: Note): Note[] {
+  const target = note.title.trim().toLowerCase()
+  return notes.value.filter(
+    (n) => n.id !== note.id && extractLinks(n.body).some((l) => l.toLowerCase() === target),
+  )
+}
+
+/** Alle in Notizen vorkommenden Tags mit Häufigkeit. */
+export function allNoteTags(): { tag: string; count: number }[] {
+  const counts = new Map<string, number>()
+  for (const n of notes.value) {
+    for (const tag of extractTags(n.body)) {
+      const key = tag.toLowerCase()
+      counts.set(key, (counts.get(key) ?? 0) + 1)
+    }
+  }
+  return [...counts.entries()].map(([tag, count]) => ({ tag, count })).sort((a, b) => b.count - a.count)
 }
 
 // ---------- Bereiche ----------
@@ -413,6 +473,7 @@ export function buildBackup(): BackupFile {
     dayPlans: dayPlans.value,
     reviews: reviews.value,
     mappings: mappings.value,
+    notes: notes.value,
     settings: settings.value,
   }
 }
@@ -426,6 +487,7 @@ export async function restoreBackup(data: BackupFile): Promise<void> {
   dayPlans.value = migrated.dayPlans
   reviews.value = migrated.reviews
   mappings.value = migrated.mappings
+  notes.value = migrated.notes ?? []
   settings.value = { ...migrated.settings, schemaVersion: CURRENT_SCHEMA_VERSION }
   await flushAll()
 }

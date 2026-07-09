@@ -8,6 +8,7 @@ import '@fontsource-variable/jetbrains-mono'
 import './styles/tokens.css'
 import './styles/base.css'
 import './styles/week.css'
+import './styles/notes.css'
 
 void loadAll()
 

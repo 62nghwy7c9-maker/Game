@@ -1,6 +1,6 @@
 import type { BackupFile } from '../types'
 
-export const CURRENT_SCHEMA_VERSION = 1
+export const CURRENT_SCHEMA_VERSION = 2
 
 /**
  * Migrationskette: MIGRATIONS[n] hebt Daten von Version n+1 auf n+2 … —
@@ -8,7 +8,8 @@ export const CURRENT_SCHEMA_VERSION = 1
  * beim Backup-Import angewendet.
  */
 export const MIGRATIONS: ((data: BackupFile) => BackupFile)[] = [
-  // v1 ist die Ausgangsversion — noch keine Migrationen nötig.
+  // v1 → v2: Notiz-Vault ergänzt
+  (d) => ({ ...d, notes: d.notes ?? [] }),
 ]
 
 export function migrate(data: BackupFile): BackupFile {

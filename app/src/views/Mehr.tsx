@@ -1,6 +1,7 @@
 import { navigate } from '../router'
 
 const ENTRIES = [
+  { route: '/notizen', icon: '🧠', title: 'Notizen', text: 'Dein zweites Gehirn: Markdown-Notizen mit [[Verlinkungen]], #Tags und Graph.' },
   { route: '/rueckblick', icon: '🔄', title: 'Wochenrückblick', text: 'Das wöchentliche Ritual: zurückschauen, aufräumen, nächste Woche planen.' },
   { route: '/import', icon: '📄', title: 'Protokoll-Import', text: 'Wettkampfprotokoll (PDF) einlesen und als Tabelle exportieren.' },
   { route: '/einstellungen', icon: '⚙️', title: 'Einstellungen', text: 'Standardwoche, Wachzeiten, Backup, Bereiche.' },
