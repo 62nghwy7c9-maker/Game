@@ -1,7 +1,8 @@
 import { activeAreas, inboxTasks, settings, tasks, weekById } from '../state/store'
 import { Top3Editor } from '../components/Top3Editor'
+import { BrainHeader } from '../components/BrainHeader'
 import { blockColor } from '../components/WeekGrid'
-import { currentWeekId, formatDateLong, minutesLabel, toHHMM, toMinutes, todayIso, weekLabel } from '../lib/dates'
+import { currentWeekId, minutesLabel, toHHMM, toMinutes, todayIso } from '../lib/dates'
 import { freeSlotsOfDay } from '../lib/freeslots'
 import { navigate } from '../router'
 
@@ -34,10 +35,7 @@ export function Heute() {
 
   return (
     <div class="view">
-      <h1 class="view-title">Heute</h1>
-      <p class="view-subtitle">
-        {formatDateLong(today)} · {weekLabel(weekId)}
-      </p>
+      <BrainHeader />
 
       {inboxCount > 0 && (
         <button

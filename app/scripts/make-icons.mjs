@@ -5,7 +5,7 @@ const svg = readFileSync('/home/user/Game/app/public/icons/favicon.svg', 'utf8')
 
 // Maskable: Motiv verkleinert auf sicherem Vollflächen-Hintergrund
 const maskable = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#2563eb"/>
+  <rect width="512" height="512" fill="#070b12"/>
   <g transform="translate(51.2,51.2) scale(0.8)">${svg.replace(/<\/?svg[^>]*>/g, '')}</g>
 </svg>`
 

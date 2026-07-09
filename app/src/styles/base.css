@@ -8,11 +8,19 @@ html {
 }
 
 body {
-  background: var(--bg);
+  /* tiefdunkler Grund mit feinem Tech-Punktraster */
+  background:
+    radial-gradient(circle at 1px 1px, var(--bg-grid) 1px, transparent 1.6px) 0 0 / 26px 26px fixed,
+    var(--bg);
   color: var(--text);
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.45;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 button,
@@ -85,6 +93,10 @@ textarea {
   font-weight: 600;
 }
 
+.tabbar a.active svg {
+  filter: drop-shadow(0 0 6px var(--primary-glow));
+}
+
 .tabbar a svg {
   width: 24px;
   height: 24px;
@@ -121,7 +133,7 @@ textarea {
   color: var(--primary-contrast);
   font-size: 1.9rem;
   line-height: 1;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), var(--glow);
   cursor: pointer;
   z-index: 41;
   display: flex;
@@ -200,6 +212,7 @@ textarea {
   background: var(--primary);
   border-color: var(--primary);
   color: var(--primary-contrast);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 
 .btn.danger {
@@ -281,6 +294,7 @@ label.field > span {
   background: var(--primary-soft);
   border-color: var(--primary);
   color: var(--primary);
+  box-shadow: 0 0 8px var(--primary-glow) inset;
 }
 
 .chip-row {
@@ -435,4 +449,58 @@ label.field > span {
 .import-table tr.is-header {
   background: var(--primary-soft);
   font-weight: 700;
+}
+
+/* ---------- AI-Brain-Header (Heute) ---------- */
+
+.brain-head {
+  position: relative;
+  height: 148px;
+  margin: -16px -16px 14px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 75% 120% at 50% -20%, rgba(56, 189, 248, 0.16), transparent 70%),
+    linear-gradient(180deg, #0a1220 0%, var(--bg) 100%);
+}
+
+.brain-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.brain-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px 16px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 30%, rgba(7, 11, 18, 0.82) 100%);
+}
+
+.brain-eyebrow {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 2px;
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.brain-greeting {
+  font-size: 1.45rem;
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+.brain-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 3px;
 }
