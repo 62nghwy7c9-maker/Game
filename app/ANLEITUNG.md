@@ -17,7 +17,7 @@ Die App wird kostenlos über GitHub Pages bereitgestellt. Das musst du einmal ak
 3. Wähle links im Menü **Pages**.
 4. Bei „Build and deployment" → **Source**: „Deploy from a branch" auswählen.
 5. Bei **Branch**: den Branch `claude/time-blocking-context-switching-dpnsyp` auswählen,
-   daneben den Ordner **`/docs`**, dann **Save**.
+   daneben den Ordner **`/docs`** (empfohlen) oder **`/ (root)`** — beides funktioniert —, dann **Save**.
 6. Nach 1–2 Minuten ist die App erreichbar unter:
 
    **https://62nghwy7c9-maker.github.io/Game/**

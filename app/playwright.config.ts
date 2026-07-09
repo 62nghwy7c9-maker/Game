@@ -9,11 +9,11 @@ export default defineConfig({
   retries: 1,
   reporter: [['list']],
   use: {
-    baseURL: 'http://localhost:4173/Game/',
+    baseURL: 'http://localhost:4173/',
   },
   webServer: {
     command: 'npm run preview -- --port 4173 --strictPort',
-    url: 'http://localhost:4173/Game/',
+    url: 'http://localhost:4173/',
     reuseExistingServer: true,
     timeout: 30_000,
   },

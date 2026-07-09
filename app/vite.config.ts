@@ -3,7 +3,8 @@ import preact from '@preact/preset-vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  base: '/Game/',
+  // relative Basis: funktioniert egal, ob Pages den Ordner /docs oder das Repo-Root ausliefert
+  base: './',
   build: {
     outDir: '../docs',
     emptyOutDir: true,
