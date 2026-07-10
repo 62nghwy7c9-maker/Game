@@ -4,7 +4,11 @@ import { BrainHeader } from '../components/BrainHeader'
 import { blockColor } from '../components/WeekGrid'
 import { currentWeekId, minutesLabel, toHHMM, toMinutes, todayIso } from '../lib/dates'
 import { freeSlotsOfDay } from '../lib/freeslots'
+import { daysSinceLastBackup } from '../lib/backup'
 import { navigate } from '../router'
+import { signal } from '@preact/signals'
+
+const backupHintDismissed = signal(false)
 
 export function Heute() {
   const today = todayIso()
@@ -48,6 +52,30 @@ export function Heute() {
           jetzt triagieren
         </button>
       )}
+
+      {(() => {
+        const days = daysSinceLastBackup()
+        const needsBackup = days === null || days > 14
+        if (!needsBackup || backupHintDismissed.value) return null
+        return (
+          <div
+            class="card"
+            style={{ borderColor: 'var(--warning)', display: 'flex', alignItems: 'center', gap: 10 }}
+            data-testid="backup-hint"
+          >
+            <span style={{ flex: 1 }}>
+              💾 {days === null ? 'Noch nie gesichert' : `Letztes Backup vor ${days} Tagen`} — mach eine Sicherungs-Datei,
+              falls du mal das Gerät wechselst.
+            </span>
+            <button class="btn small primary" onClick={() => navigate('/einstellungen')}>
+              Sichern
+            </button>
+            <button class="btn small" onClick={() => (backupHintDismissed.value = true)} aria-label="Ausblenden">
+              ✕
+            </button>
+          </div>
+        )
+      })()}
 
       <Top3Editor dateIso={today} />
 

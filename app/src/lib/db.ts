@@ -26,10 +26,21 @@ export async function dbEntries(): Promise<[IDBValidKey, unknown][]> {
 }
 
 /** Dauerhafte Speicherung anfordern (Schutz vor Browser-Aufräumen, v. a. iOS). */
-export async function requestPersistentStorage(): Promise<void> {
+export async function requestPersistentStorage(): Promise<boolean> {
   try {
-    if (navigator.storage?.persist) await navigator.storage.persist()
+    if (navigator.storage?.persist) return await navigator.storage.persist()
   } catch {
     // nicht unterstützt — unkritisch
   }
+  return false
+}
+
+/** Ist die dauerhafte Speicherung bereits gewährt? */
+export async function isStoragePersisted(): Promise<boolean> {
+  try {
+    if (navigator.storage?.persisted) return await navigator.storage.persisted()
+  } catch {
+    // nicht unterstützt
+  }
+  return false
 }

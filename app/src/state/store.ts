@@ -15,6 +15,7 @@ import type {
 } from '../types'
 import { extractLinks, extractTags } from '../lib/markdown'
 import { dbGet, dbSet, requestPersistentStorage, type CollectionKey } from '../lib/db'
+import { loadMirror, saveMirror } from '../lib/persist'
 import { CURRENT_SCHEMA_VERSION, migrate } from '../lib/migrations'
 import { newId, nowIso } from '../lib/id'
 import { addWeeks, currentWeekId, datesOfWeek, todayIso, toMinutes } from '../lib/dates'
@@ -139,6 +140,23 @@ export async function loadAll(): Promise<void> {
     mappings.value = migrated.mappings
     notes.value = migrated.notes
     settings.value = migrated.settings
+  } else if (!st && loadMirror()) {
+    // Hauptdatenbank leer/verloren, aber automatische Gerätesicherung vorhanden
+    // → daraus wiederherstellen und zurück in die Datenbank schreiben.
+    const m = migrate(loadMirror()!)
+    areas.value = m.areas
+    tasks.value = m.tasks
+    weeks.value = m.weeks
+    templates.value = m.templates
+    dayPlans.value = m.dayPlans
+    reviews.value = m.reviews
+    mappings.value = m.mappings
+    notes.value = m.notes ?? []
+    settings.value = { ...m.settings, schemaVersion: CURRENT_SCHEMA_VERSION }
+    ready.value = true
+    await flushAll()
+    void requestPersistentStorage()
+    return
   } else {
     const firstStart = !st
     const seededAreas = a && a.length > 0 ? a : seedAreas()
@@ -190,6 +208,29 @@ autoPersist('reviews', reviews)
 autoPersist('mappings', mappings)
 autoPersist('notes', notes)
 autoPersist('settings', settings)
+
+// Automatische Zweit-Sicherung (Spiegel in localStorage) bei jeder Änderung
+let mirrorTimer: ReturnType<typeof setTimeout> | undefined
+let mirrorFirst = true
+effect(() => {
+  // alle Sammlungen beobachten
+  areas.value
+  tasks.value
+  weeks.value
+  templates.value
+  dayPlans.value
+  reviews.value
+  mappings.value
+  notes.value
+  settings.value
+  if (!ready.value) return
+  if (mirrorFirst) {
+    mirrorFirst = false
+    return
+  }
+  clearTimeout(mirrorTimer)
+  mirrorTimer = setTimeout(() => saveMirror(buildBackup()), 800)
+})
 
 /** Sofort alles wegschreiben (z. B. vor Backup-Import oder in Tests). */
 export async function flushAll(): Promise<void> {

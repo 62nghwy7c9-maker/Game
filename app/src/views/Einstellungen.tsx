@@ -1,7 +1,10 @@
 import { useSignal } from '@preact/signals'
+import { useEffect } from 'preact/hooks'
 import type { BlockDef } from '../types'
 import { areas, mappings, saveTemplateBlocks, settings, standardTemplate, updateArea } from '../state/store'
 import { downloadBackup, importBackupFile } from '../lib/backup'
+import { isStoragePersisted, requestPersistentStorage } from '../lib/db'
+import { mirrorSavedAt } from '../lib/persist'
 import { BottomSheet } from '../components/BottomSheet'
 import { ConfirmDialog } from '../components/ConfirmDialog'
 import { BlockForm, type BlockFormValue } from '../components/BlockForm'
@@ -11,6 +14,10 @@ import { newId } from '../lib/id'
 import { AreaDot } from '../components/AreaBadge'
 
 export function Einstellungen() {
+  const persisted = useSignal<boolean | null>(null)
+  useEffect(() => {
+    void isStoragePersisted().then((p) => (persisted.value = p))
+  }, [])
   const editingDef = useSignal<BlockDef | null>(null)
   const creatingDef = useSignal(false)
   const pendingImport = useSignal<File | null>(null)
@@ -46,6 +53,58 @@ export function Einstellungen() {
   return (
     <div class="view">
       <h1 class="view-title">Einstellungen</h1>
+
+      <div class="card">
+        <div class="card-title">
+          <span>🔒 Datensicherheit</span>
+        </div>
+        <p class="muted" style={{ marginBottom: 10 }}>
+          Zeitzauber sichert deine Daten auf drei Ebenen, damit nichts verloren geht.
+        </p>
+        <div class="list-item">
+          <span style={{ flex: 1 }}>
+            Dauerhafte Speicherung
+            <div class="muted">Schützt davor, dass der Browser die Daten automatisch aufräumt.</div>
+          </span>
+          {persisted.value === true ? (
+            <span style={{ color: 'var(--success)', fontWeight: 700 }} data-testid="persist-status">
+              ✓ aktiv
+            </span>
+          ) : (
+            <button
+              class="btn small"
+              data-testid="persist-enable"
+              onClick={async () => {
+                const ok = await requestPersistentStorage()
+                persisted.value = ok || (await isStoragePersisted())
+                showToast(
+                  persisted.value
+                    ? 'Dauerhafte Speicherung ist aktiv.'
+                    : 'Der Browser hat die Anfrage (noch) nicht gewährt — oft hilft „Zum Home-Bildschirm".',
+                )
+              }}
+            >
+              Aktivieren
+            </button>
+          )}
+        </div>
+        <div class="list-item">
+          <span style={{ flex: 1 }}>
+            Automatische Gerätesicherung
+            <div class="muted">Laufende Zweit-Kopie auf dem Gerät; wird bei Bedarf automatisch wiederhergestellt.</div>
+          </span>
+          <span style={{ color: 'var(--success)', fontWeight: 700 }}>✓ an</span>
+        </div>
+        {mirrorSavedAt() && (
+          <p class="muted" style={{ marginTop: 6 }}>
+            Letzte automatische Sicherung: {new Date(mirrorSavedAt()!).toLocaleString('de-DE')}
+          </p>
+        )}
+        <p class="muted" style={{ marginTop: 10 }}>
+          Wichtig fürs Übertragen auf ein anderes Gerät und als Schutz, falls du den Browser-Speicher löschst,
+          bleibt das Backup unten. 👇
+        </p>
+      </div>
 
       <div class="card">
         <div class="card-title">

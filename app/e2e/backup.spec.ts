@@ -18,8 +18,9 @@ test('Backup: Export → Daten löschen → Import stellt alles wieder her', asy
   expect(backup.app).toBe('wochenkompass')
   expect(backup.tasks.some((t: { title: string }) => t.title === 'Backup-Testaufgabe')).toBe(true)
 
-  // Kompletten Datenbestand löschen
+  // Frisches Gerät simulieren: Datenbank UND automatische Gerätesicherung löschen
   await page.evaluate(async () => {
+    localStorage.clear()
     await new Promise((resolve, reject) => {
       const req = indexedDB.deleteDatabase('wochenkompass')
       req.onsuccess = resolve
