@@ -8,7 +8,7 @@ import { openAssistant } from './YannikAssistant'
 /** Lustiges Zauberer-Guide-Maskottchen mit kontextabhängigen Tipps. */
 
 const WELCOME =
-  'Willkommen bei Zeitzauber! Alohomora 🪄 — ich bin Yannik, dein Hauszauberer, und zeig dir die App. Tipp mich an, wenn du einen Rat brauchst.'
+  'Willkommen bei Zeitzauber! Alohomora 🪄 — ich bin Yannik Potter, dein Hauszauberer, und zeig dir die App. Tipp mich an, wenn du einen Rat brauchst.'
 
 const TIPS: Record<string, string[]> = {
   heute: [
@@ -81,8 +81,8 @@ export function Mascot() {
 
   if (collapsed.value) {
     return (
-      <button class="mascot-btn" onClick={summon} aria-label="Yannik um Rat fragen" data-testid="mascot-summon">
-        <img src={faceImg} alt="Yannik" />
+      <button class="mascot-btn" onClick={summon} aria-label="Yannik Potter um Rat fragen" data-testid="mascot-summon">
+        <img src={faceImg} alt="Yannik Potter" />
       </button>
     )
   }
@@ -118,12 +118,12 @@ export function Mascot() {
           }}
           data-testid="mascot-assistant"
         >
-          🪄 Sortier-Hilfe & Brainstorming
+          🪄 KIannik: Inbox sortieren & Brainstorming
         </button>
       </div>
       <img
         src={mascotImg}
-        alt="Yannik, dein Hauszauberer"
+        alt="Yannik Potter, dein Hauszauberer"
         class="mascot-figure"
         onClick={isWelcome ? () => (collapsed.value = true) : nextTip}
         data-testid="mascot-figure"

@@ -73,13 +73,13 @@ async function callClaude(opts: {
   return text
 }
 
-/** Freie Brainstorming-/Nachdenk-Anfrage an Yannik. */
+/** Freie Brainstorming-/Nachdenk-Anfrage an KIannik. */
 export async function askYannik(prompt: string, apiKey: string, model: string): Promise<string> {
   const system =
-    'Du bist Yannik, ein freundlicher, humorvoller Zauberer-Assistent in einer deutschen ' +
-    'Produktivitäts-App namens Zeitzauber. Du hilfst beim Sortieren von Gedanken, beim ' +
-    'Brainstormen und beim Strukturieren von Aufgaben. Antworte auf Deutsch, prägnant und ' +
-    'praktisch, gern mit einer kleinen magischen Note.'
+    'Du bist KIannik, der freundliche, humorvolle KI-Zauberergehilfe in einer deutschen ' +
+    'Produktivitäts-App namens Zeitzauber (dein Meister ist Yannik Potter). Du hilfst beim ' +
+    'Sortieren von Gedanken, beim Brainstormen und beim Strukturieren von Aufgaben. Antworte ' +
+    'auf Deutsch, prägnant und praktisch, gern mit einer kleinen magischen Note.'
   return callClaude({ apiKey, model, system, user: prompt, maxTokens: 1500 })
 }
 
@@ -106,7 +106,7 @@ export async function claudeSortInbox(
 
   const areaNames = areas.filter((a) => !a.archived).map((a) => a.name)
   const system =
-    'Du bist Yannik, ein Sortier-Assistent. Ordne jeden Eintrag genau einem der ' +
+    'Du bist KIannik, ein Sortier-Assistent. Ordne jeden Eintrag genau einem der ' +
     'vorgegebenen Lebensbereiche zu. Antworte AUSSCHLIESSLICH mit einem JSON-Array, ' +
     'ohne Erklärtext davor oder danach.'
   const user =
@@ -120,7 +120,7 @@ export async function claudeSortInbox(
   const parsed = JSON.parse(json) as { id: string; area: string; reason?: string }[]
   return parsed
     .filter((p) => p && p.id && areaNames.includes(p.area))
-    .map((p) => ({ taskId: p.id, areaName: p.area, reason: p.reason ?? 'von Yannik einsortiert' }))
+    .map((p) => ({ taskId: p.id, areaName: p.area, reason: p.reason ?? 'von KIannik einsortiert' }))
 }
 
 /** Zieht das erste JSON-Array aus einer Modellantwort (falls in Prosa gehüllt). */

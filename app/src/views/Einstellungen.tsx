@@ -140,10 +140,10 @@ export function Einstellungen() {
 
       <div class="card">
         <div class="card-title">
-          <span>🪄 Yannik als KI</span>
+          <span>🪄 KIannik (KI-Helfer)</span>
         </div>
         <p class="muted" style={{ marginBottom: 10 }}>
-          Yannik sortiert deine Inbox jederzeit kostenlos & offline. Für echtes Brainstorming und noch bessere
+          KIannik sortiert deine Inbox jederzeit kostenlos & offline. Für echtes Brainstorming und noch bessere
           Sortierung kannst du optional deinen eigenen Claude-API-Schlüssel hinterlegen. Er bleibt{' '}
           <strong>nur auf diesem Gerät</strong> und geht ausschließlich direkt an Anthropic.
         </p>

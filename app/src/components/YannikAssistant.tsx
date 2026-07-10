@@ -10,7 +10,7 @@ import faceImg from '../assets/yannik-face.png'
 
 const open = signal(false)
 
-/** Öffnet Yanniks KI-Assistenten (von der Maskottchen-Figur aus). */
+/** Öffnet KIannik, den KI-Assistenten (von Yannik Potter aus). */
 export function openAssistant(): void {
   open.value = true
 }
@@ -57,7 +57,7 @@ export function YannikAssistant() {
         proposals.value = proposeInboxSorting(tasks.value, areas.value)
       }
       if (proposals.value.length === 0) {
-        showToast('Yannik konnte nichts eindeutig zuordnen — alles schon einsortiert? ✨')
+        showToast('KIannik konnte nichts eindeutig zuordnen — alles schon einsortiert? ✨')
       }
     } catch (err) {
       showToast((err as Error).message, { sticky: true, actionLabel: 'OK' })
@@ -87,11 +87,11 @@ export function YannikAssistant() {
   }
 
   return (
-    <BottomSheet onClose={close} label="Yanniks KI-Assistent">
+    <BottomSheet onClose={close} label="KIannik – KI-Assistent">
       <div class="yannik-head">
-        <img src={faceImg} alt="Yannik" class="yannik-avatar" />
+        <img src={faceImg} alt="KIannik" class="yannik-avatar" />
         <div>
-          <h3 style={{ margin: 0 }}>Yannik hilft</h3>
+          <h3 style={{ margin: 0 }}>KIannik hilft 🪄</h3>
           <p class="muted" style={{ margin: 0, fontSize: '0.85rem' }}>
             {aiAvailable ? `Echte KI aktiv (${model})` : 'Sortier-Magie ohne Netz — kostenlos'}
           </p>
@@ -104,7 +104,7 @@ export function YannikAssistant() {
         </div>
         <p class="muted" style={{ marginBottom: 10 }}>
           {pendingCount > 0
-            ? `${pendingCount} Einträge ohne Bereich. Yannik schlägt passende Bereiche vor.`
+            ? `${pendingCount} Einträge ohne Bereich. KIannik schlägt passende Bereiche vor.`
             : 'Alle Inbox-Einträge haben bereits einen Bereich. 🎉'}
         </p>
         {proposals.value === null ? (
@@ -114,7 +114,7 @@ export function YannikAssistant() {
             onClick={sortInbox}
             data-testid="yannik-sort"
           >
-            {busy.value ? 'Yannik überlegt …' : 'Yannik sortieren lassen'}
+            {busy.value ? 'KIannik überlegt …' : 'KIannik sortieren lassen'}
           </button>
         ) : (
           <div data-testid="yannik-proposals">
@@ -150,7 +150,7 @@ export function YannikAssistant() {
 
       <div class="card">
         <div class="card-title">
-          <span>💬 Frag Yannik</span>
+          <span>💬 Frag KIannik</span>
         </div>
         {aiAvailable ? (
           <>
@@ -165,7 +165,7 @@ export function YannikAssistant() {
               data-testid="yannik-prompt"
             />
             <button class="btn primary" disabled={busy.value || !prompt.value.trim()} onClick={ask} style={{ marginTop: 8 }}>
-              {busy.value ? 'Yannik denkt nach …' : 'Fragen'}
+              {busy.value ? 'KIannik denkt nach …' : 'Fragen'}
             </button>
             {answer.value && (
               <div class="yannik-answer" data-testid="yannik-answer">

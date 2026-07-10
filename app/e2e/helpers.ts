@@ -8,6 +8,12 @@ export async function gotoApp(page: Page, hash = '#/heute'): Promise<void> {
     await intro.click({ timeout: 1500 }).catch(() => {})
     await intro.waitFor({ state: 'detached', timeout: 3000 }).catch(() => {})
   }
+  // Einmaliges Onboarding (erster Start) wegklicken
+  const onbSkip = page.getByTestId('onboarding-skip')
+  if (await onbSkip.count()) {
+    await onbSkip.click({ timeout: 1500 }).catch(() => {})
+    await page.getByTestId('onboarding').waitFor({ state: 'detached', timeout: 3000 }).catch(() => {})
+  }
   // Maskottchen einklappen, damit die Sprechblase keine Klicks abfängt
   const mascotClose = page.getByTestId('mascot-close')
   if (await mascotClose.count()) {
