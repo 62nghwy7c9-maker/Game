@@ -2,6 +2,7 @@ import { useSignal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
 import type { BlockDef } from '../types'
 import { areas, mappings, saveTemplateBlocks, settings, standardTemplate, updateArea } from '../state/store'
+import { AI_MODELS, DEFAULT_AI_MODEL } from '../lib/ai'
 import { downloadBackup, importBackupFile } from '../lib/backup'
 import { isStoragePersisted, requestPersistentStorage } from '../lib/db'
 import { mirrorSavedAt } from '../lib/persist'
@@ -135,6 +136,47 @@ export function Einstellungen() {
             Letztes Backup: {new Date(settings.value.lastBackupAt).toLocaleString('de-DE')}
           </p>
         )}
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>🪄 Yannik als KI</span>
+        </div>
+        <p class="muted" style={{ marginBottom: 10 }}>
+          Yannik sortiert deine Inbox jederzeit kostenlos & offline. Für echtes Brainstorming und noch bessere
+          Sortierung kannst du optional deinen eigenen Claude-API-Schlüssel hinterlegen. Er bleibt{' '}
+          <strong>nur auf diesem Gerät</strong> und geht ausschließlich direkt an Anthropic.
+        </p>
+        <label class="field">
+          <span>Claude-API-Schlüssel (optional)</span>
+          <input
+            type="password"
+            autocomplete="off"
+            placeholder="sk-ant-…"
+            value={settings.value.claudeApiKey ?? ''}
+            onInput={(e) =>
+              (settings.value = { ...settings.value, claudeApiKey: (e.target as HTMLInputElement).value.trim() || undefined })
+            }
+            data-testid="ai-key"
+          />
+        </label>
+        <label class="field">
+          <span>Modell</span>
+          <select
+            value={settings.value.aiModel ?? DEFAULT_AI_MODEL}
+            onChange={(e) => (settings.value = { ...settings.value, aiModel: (e.target as HTMLSelectElement).value })}
+            data-testid="ai-model"
+          >
+            {AI_MODELS.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <p class="muted" style={{ fontSize: '0.8rem' }}>
+          Schlüssel gibt es unter console.anthropic.com. Ohne Schlüssel funktioniert die Sortier-Magie trotzdem.
+        </p>
       </div>
 
       <div class="card">

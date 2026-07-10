@@ -136,6 +136,10 @@ export interface Settings {
   wakeEnd: string
   onboardingDone: boolean
   lastBackupAt?: string
+  /** Optionaler eigener Claude-API-Schlüssel (nur lokal auf dem Gerät). */
+  claudeApiKey?: string
+  /** Modell für Yanniks KI-Funktionen. */
+  aiModel?: string
 }
 
 export interface BackupFile {

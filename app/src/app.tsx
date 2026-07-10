@@ -6,6 +6,7 @@ import { CaptureSheet } from './components/CaptureSheet'
 import { ToastHost } from './components/Toast'
 import { IntroSplash } from './components/IntroSplash'
 import { Mascot } from './components/Mascot'
+import { YannikAssistant } from './components/YannikAssistant'
 import { Heute } from './views/Heute'
 import { Woche } from './views/Woche'
 import { InboxView } from './views/InboxView'
@@ -71,6 +72,7 @@ export function App() {
       <CaptureSheet />
       <ToastHost />
       <Mascot />
+      <YannikAssistant />
       <IntroSplash />
     </>
   )

@@ -2,6 +2,8 @@ import { signal } from '@preact/signals'
 import { useEffect } from 'preact/hooks'
 import { route } from '../router'
 import mascotImg from '../assets/mascot.png'
+import faceImg from '../assets/yannik-face.png'
+import { openAssistant } from './YannikAssistant'
 
 /** Lustiges Zauberer-Guide-Maskottchen mit kontextabhängigen Tipps. */
 
@@ -80,7 +82,7 @@ export function Mascot() {
   if (collapsed.value) {
     return (
       <button class="mascot-btn" onClick={summon} aria-label="Yannik um Rat fragen" data-testid="mascot-summon">
-        🧙
+        <img src={faceImg} alt="Yannik" />
       </button>
     )
   }
@@ -108,6 +110,16 @@ export function Mascot() {
             </button>
           )
         )}
+        <button
+          class="yannik-cta"
+          onClick={() => {
+            collapsed.value = true
+            openAssistant()
+          }}
+          data-testid="mascot-assistant"
+        >
+          🪄 Sortier-Hilfe & Brainstorming
+        </button>
       </div>
       <img
         src={mascotImg}

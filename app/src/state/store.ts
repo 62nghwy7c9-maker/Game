@@ -366,6 +366,22 @@ export function toggleTaskDone(id: string): void {
   }
 }
 
+/** Weist mehreren Aufgaben in einem Rutsch einen Bereich zu (Yanniks Sortierung). */
+export function assignAreas(assignments: { taskId: string; areaId: string }[]): number {
+  if (assignments.length === 0) return 0
+  const map = new Map(assignments.map((a) => [a.taskId, a.areaId]))
+  let count = 0
+  tasks.value = tasks.value.map((t) => {
+    const areaId = map.get(t.id)
+    if (areaId && t.areaId !== areaId) {
+      count += 1
+      return { ...t, areaId, updatedAt: nowIso() }
+    }
+    return t
+  })
+  return count
+}
+
 export function deleteTask(id: string): void {
   tasks.value = tasks.value.filter((t) => t.id !== id)
   // Referenzen aus Blöcken entfernen
