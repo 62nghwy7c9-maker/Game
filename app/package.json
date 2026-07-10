@@ -1,5 +1,5 @@
 {
-  "name": "wochenkompass",
+  "name": "zeitzauber",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "e2e": "playwright test",
-    "build:offline": "vite build -c vite.singlefile.config.ts && mv ../docs/offline/index.html ../docs/offline/wochenkompass.html",
+    "build:offline": "vite build -c vite.singlefile.config.ts && mv ../docs/offline/index.html ../docs/offline/zeitzauber.html",
     "build:all": "npm run build && npm run build:offline"
   },
   "dependencies": {

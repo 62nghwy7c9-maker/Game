@@ -1,10 +1,11 @@
-# Wochenkompass — Anleitung
+# Zeitzauber — Anleitung
 
-Wochenkompass ist deine persönliche Planungs-App gegen das tägliche „Pingpong":
+Zeitzauber ist deine persönliche Planungs-App gegen das tägliche „Pingpong":
 Wochenplanung mit festen Zeitblöcken, eine Blitz-Inbox für alles Spontane,
-Tages-Top-3, ein wöchentliches Rückblick-Ritual und ein PDF-Import für
-Wettkampfprotokolle. **Alle Daten bleiben auf deinem Gerät** — kein Konto,
-kein Server, keine Cloud.
+Tages-Top-3, ein Notiz-Vault (Markdown, [[Verlinkungen]], Graph), ein
+wöchentliches Rückblick-Ritual und ein PDF-Import für Wettkampfprotokolle.
+Dein Hauszauberer **Yannik** führt dich durch die App. **Alle Daten bleiben
+auf deinem Gerät** — kein Konto, kein Server, keine Cloud.
 
 ---
 
@@ -56,7 +57,7 @@ Schnellaktion **„Schnell erfassen"** — direkt in die Inbox tippen.
 
 ## 4. Notfall-Variante ohne GitHub Pages
 
-Im Ordner `docs/offline/` liegt **`wochenkompass.html`** — eine einzelne Datei,
+Im Ordner `docs/offline/` liegt **`zeitzauber.html`** — eine einzelne Datei,
 die du herunterladen und direkt im Browser öffnen kannst (Doppelklick).
 Keine Installation, kein Offline-Cache, aber voll funktionsfähig;
 die Daten werden auch hier lokal im Browser gespeichert.

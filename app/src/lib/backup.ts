@@ -9,7 +9,7 @@ export function downloadBackup(): void {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `wochenkompass-backup-${todayIso()}.json`
+  a.download = `zeitzauber-backup-${todayIso()}.json`
   document.body.appendChild(a)
   a.click()
   a.remove()
@@ -20,7 +20,7 @@ export function downloadBackup(): void {
 export function validateBackup(raw: unknown): BackupFile {
   const d = raw as Partial<BackupFile>
   if (!d || typeof d !== 'object' || d.app !== 'wochenkompass') {
-    throw new Error('Das ist keine Wochenkompass-Backup-Datei.')
+    throw new Error('Das ist keine Zeitzauber-Backup-Datei.')
   }
   if (typeof d.schemaVersion !== 'number') throw new Error('Backup ohne Schema-Version — Datei beschädigt?')
   for (const key of ['areas', 'tasks', 'weeks', 'templates', 'dayPlans', 'reviews', 'mappings'] as const) {

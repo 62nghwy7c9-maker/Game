@@ -148,11 +148,11 @@ export function IntroSplash() {
   if (!introVisible.value) return null
 
   return (
-    <div class="intro" ref={rootRef} role="dialog" aria-label="Wochenkompass" data-testid="intro-splash">
+    <div class="intro" ref={rootRef} role="dialog" aria-label="Zeitzauber" data-testid="intro-splash">
       <canvas ref={canvasRef} class="intro-canvas" aria-hidden="true" />
       <div class="intro-content">
-        <div class="intro-title">Wochenkompass</div>
-        <div class="intro-tag mono">Fokus statt Pingpong</div>
+        <div class="intro-title">Zeitzauber</div>
+        <div class="intro-tag mono">Zeit verhexen statt verzetteln</div>
       </div>
       <div class="intro-skip mono">Tippen zum Überspringen</div>
     </div>

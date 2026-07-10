@@ -5,7 +5,8 @@ import mascotImg from '../assets/mascot.png'
 
 /** Lustiges Zauberer-Guide-Maskottchen mit kontextabhängigen Tipps. */
 
-const WELCOME = 'Alohomora! 🪄 Ich bin dein Hauszauberer und zeig dir die App. Tipp mich an, wenn du einen Rat brauchst.'
+const WELCOME =
+  'Willkommen bei Zeitzauber! Alohomora 🪄 — ich bin Yannik, dein Hauszauberer, und zeig dir die App. Tipp mich an, wenn du einen Rat brauchst.'
 
 const TIPS: Record<string, string[]> = {
   heute: [
@@ -78,7 +79,7 @@ export function Mascot() {
 
   if (collapsed.value) {
     return (
-      <button class="mascot-btn" onClick={summon} aria-label="Hauszauberer um Rat fragen" data-testid="mascot-summon">
+      <button class="mascot-btn" onClick={summon} aria-label="Yannik um Rat fragen" data-testid="mascot-summon">
         🧙
       </button>
     )
@@ -110,7 +111,7 @@ export function Mascot() {
       </div>
       <img
         src={mascotImg}
-        alt="Hauszauberer"
+        alt="Yannik, dein Hauszauberer"
         class="mascot-figure"
         onClick={isWelcome ? () => (collapsed.value = true) : nextTip}
         data-testid="mascot-figure"

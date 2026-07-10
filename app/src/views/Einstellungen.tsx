@@ -178,7 +178,7 @@ export function Einstellungen() {
       )}
 
       <p class="muted" style={{ textAlign: 'center' }}>
-        Wochenkompass · Version {import.meta.env.VITE_APP_VERSION ?? '0.1.0'} · Alle Daten bleiben auf deinem Gerät.
+        Zeitzauber · Version {import.meta.env.VITE_APP_VERSION ?? '0.1.0'} · Alle Daten bleiben auf deinem Gerät.
       </p>
 
       {(creatingDef.value || editingDef.value) && (

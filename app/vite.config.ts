@@ -18,10 +18,10 @@ export default defineConfig({
         globPatterns: ['**/*.{js,mjs,css,html,svg,png,ico,woff2}'],
       },
       manifest: {
-        name: 'Wochenkompass',
-        short_name: 'Kompass',
+        name: 'Zeitzauber',
+        short_name: 'Zeitzauber',
         description:
-          'Wochenplanung mit Zeitblöcken, Capture-Inbox, Triage und Wochenrückblick — deine Daten bleiben auf deinem Gerät.',
+          'Zeitzauber: Wochenplanung mit Zeitblöcken, Capture-Inbox, Triage, Notiz-Vault und Wochenrückblick — deine Daten bleiben auf deinem Gerät.',
         lang: 'de',
         display: 'standalone',
         background_color: '#070b12',
