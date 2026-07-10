@@ -1,5 +1,6 @@
 import { signal } from '@preact/signals'
 import { useEffect, useRef } from 'preact/hooks'
+import mascotImg from '../assets/mascot.png'
 
 /** Steuert, ob das Intro noch sichtbar ist (einmal pro App-Start). */
 export const introVisible = signal(!sessionStoragePlayed())
@@ -54,8 +55,8 @@ export function IntroSplash() {
       canvas.height = h * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       const cx = w / 2
-      const cy = h * 0.42
-      const R = Math.min(w, h) * 0.28
+      const cy = h * 0.3
+      const R = Math.min(w, h) * 0.26
       nodes = Array.from({ length: N }, (_, i) => {
         const ang = (i / N) * Math.PI * 2 + i * 0.7
         const rad = R * (0.35 + 0.65 * ((i * 97) % 100) / 100)
@@ -150,6 +151,7 @@ export function IntroSplash() {
   return (
     <div class="intro" ref={rootRef} role="dialog" aria-label="Zeitzauber" data-testid="intro-splash">
       <canvas ref={canvasRef} class="intro-canvas" aria-hidden="true" />
+      <img src={mascotImg} class="intro-wizard" alt="" aria-hidden="true" />
       <div class="intro-content">
         <div class="intro-title">Zeitzauber</div>
         <div class="intro-tag mono">Zeit verhexen statt verzetteln</div>
