@@ -1,0 +1,47 @@
+/*
+ * Wochenkompass Design-Tokens — dunkles, technisch-präzises Theme.
+ * Kernfarbe: elektrisches Cyan-Blau. Die App ist bewusst dark-only.
+ */
+:root {
+  color-scheme: dark;
+
+  --bg: #070b12;
+  --bg-grid: rgba(56, 189, 248, 0.05);
+  --surface: #0d141f;
+  --surface-2: #16202e;
+  --text: #e7eef6;
+  --text-muted: #8595a8;
+  --border: #1e2c3d;
+  --border-strong: #2c405a;
+
+  --primary: #38bdf8;
+  --primary-contrast: #04121d;
+  --primary-soft: #0d2c40;
+  --primary-glow: rgba(56, 189, 248, 0.35);
+
+  --danger: #f87181;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --free-slot: #0b1119;
+
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+  --glow: 0 0 14px var(--primary-glow);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --tabbar-h: 60px;
+
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Bereichs-/Blockfarben — abgestimmt auf tiefdunklen Grund, tragen weißen Text */
+  --area-blau: #2f7ff6;
+  --area-gruen: #10a56f;
+  --area-orange: #e08a0b;
+  --area-rot: #e5484d;
+  --area-lila: #8b5cf6;
+  --area-tuerkis: #0fa5a0;
+  --area-pink: #db2f84;
+  --area-braun: #a06a1b;
+  --area-grau: #5c6f85;
+  --area-indigo: #5a67e8;
+}

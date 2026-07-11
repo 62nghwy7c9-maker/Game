@@ -1,0 +1,177 @@
+/* ---------- Wochenraster ---------- */
+
+.weekgrid {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.day-col {
+  flex: 0 0 86vw;
+  max-width: 340px;
+  scroll-snap-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.day-head {
+  padding: 8px 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+}
+
+.day-head.today {
+  color: var(--primary);
+}
+
+.day-body {
+  position: relative;
+}
+
+.hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed var(--border);
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  padding-left: 4px;
+  pointer-events: none;
+}
+
+.wblock {
+  position: absolute;
+  left: 34px;
+  right: 6px;
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  color: #fff;
+  display: block;
+}
+
+.wblock .wblock-time {
+  opacity: 0.85;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+}
+
+.wblock.done {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+.wblock-task-count {
+  position: absolute;
+  top: 3px;
+  right: 6px;
+  font-size: 0.65rem;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 0 5px;
+}
+
+.free-slot {
+  position: absolute;
+  left: 34px;
+  right: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--free-slot);
+  border: 1px dashed var(--border);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.now-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2px solid var(--danger);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.now-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--danger);
+}
+
+@media (min-width: 900px) {
+  .weekgrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    overflow-x: visible;
+  }
+
+  .day-col {
+    flex: none;
+    max-width: none;
+  }
+
+  .wblock,
+  .free-slot {
+    left: 28px;
+  }
+}
+
+/* ---------- Heute-Timeline ---------- */
+
+.timeline {
+  position: relative;
+  border-left: 2px solid var(--border);
+  margin-left: 52px;
+  padding: 4px 0;
+}
+
+.tl-item {
+  position: relative;
+  margin: 0 0 10px 14px;
+}
+
+.tl-time {
+  position: absolute;
+  left: -68px;
+  top: 2px;
+  width: 46px;
+  text-align: right;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.tl-dot {
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
